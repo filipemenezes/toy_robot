@@ -27,41 +27,23 @@ module ToyRobot
     def place(x, y, facing)
       @x = x
       @y = y
-      @facing = facing
+      @facing = ToyRobot::Direction[facing]
       @placed = true
     end
 
     # Public: Used to show the client where the Toy Robot is right now.
     def report
-      "#{@x},#{@y},#{@facing.to_s.upcase}"
+      "#{@x},#{@y},#{@facing}"
     end
 
     def left
       raise NeedToBeInPlace.new unless @placed
-
-      if @facing == :north
-        @facing = :west
-      elsif @facing == :west
-        @facing = :south
-      elsif @facing == :south
-        @facing = :east
-      elsif @facing == :east
-        @facing = :north
-      end
+      @facing = @facing.left
     end
 
     def right
       raise NeedToBeInPlace.new unless @placed
-
-      if @facing == :north
-        @facing = :east
-      elsif @facing == :east
-        @facing = :south
-      elsif @facing == :south
-        @facing = :west
-      elsif @facing == :west
-        @facing = :north
-      end
+      @facing = @facing.right
     end
 
     def move
