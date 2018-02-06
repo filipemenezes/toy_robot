@@ -17,7 +17,7 @@ RSpec.describe ToyRobot::Direction do
   end
 
   describe ToyRobot::Direction::North do
-    subject(:north) { described_class.new }
+    subject(:north) { described_class.instance }
 
     it 'knows which direction is at 90° left' do
       expect(north.left).to be_a ToyRobot::Direction::West
@@ -29,7 +29,7 @@ RSpec.describe ToyRobot::Direction do
   end
 
   describe ToyRobot::Direction::West  do
-    subject(:west) { described_class.new }
+    subject(:west) { described_class.instance }
 
     it 'knows which direction is at 90° left' do
       expect(west.left).to be_a ToyRobot::Direction::South
@@ -41,7 +41,7 @@ RSpec.describe ToyRobot::Direction do
   end
 
   describe ToyRobot::Direction::South do
-    subject(:south) { described_class.new }
+    subject(:south) { described_class.instance }
 
     it 'knows which direction is at 90° left' do
       expect(south.left).to be_a ToyRobot::Direction::East
@@ -53,7 +53,7 @@ RSpec.describe ToyRobot::Direction do
   end
 
   describe ToyRobot::Direction::East do
-    subject(:east) { described_class.new }
+    subject(:east) { described_class.instance }
 
     it 'knows which direction is at 90° left' do
       expect(east.left).to be_a ToyRobot::Direction::North
