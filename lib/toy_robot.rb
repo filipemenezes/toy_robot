@@ -2,6 +2,7 @@ require 'toy_robot/version'
 require 'toy_robot/robot'
 require 'toy_robot/direction/all'
 require 'toy_robot/direction'
+require 'toy_robot/coordinate'
 
 module ToyRobot
 end
