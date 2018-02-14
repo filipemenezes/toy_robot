@@ -2,6 +2,7 @@ module ToyRobot
   # Public: Used to inform the client that the robot need to be placed before
   # react to other (existent) commands.
   class NeedToBeInPlace < StandardError; end
+  class OutOfLimits < StandardError; end
 
   # Public: Represents the `Toy Robot` that will actually move throughout the
   # table. It knows how to execute all the specified commands.
@@ -14,6 +15,10 @@ module ToyRobot
   #   robot.report
   #   # => 2,3,NORTH
   class Robot
+    def initialize(table = [5, 5])
+      @table = table
+    end
+
     # Public: Used to place the robot on the table in the given position.
     #
     # position - A Position to define the current position an facing direction
@@ -78,7 +83,21 @@ module ToyRobot
     # returns nothing.
     def move
       raise NeedToBeInPlace.new unless @placed
-      @position = @position.forward
+
+      future_position = @position.forward
+
+      if outside_limits? future_position
+        raise OutOfLimits.new
+      end
+
+      @position = future_position
+    end
+
+    private
+
+    def outside_limits?(position)
+      (position.y < 0 || position.x < 0) ||
+        (position.y >= @table[0] || position.x >= @table[1])
     end
   end
 end
