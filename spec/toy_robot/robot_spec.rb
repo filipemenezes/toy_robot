@@ -8,6 +8,13 @@ RSpec.describe ToyRobot::Robot do
 
       expect(robot.report).to eq '0,0,SOUTH'
     end
+
+    it 'refuses to be placed outside the table (outside x/y axis limits)' do
+      coordinate = ToyRobot::Coordinate.new 5, 0
+      position = ToyRobot::Position.new coordinate, :north
+
+      expect { robot.place(position) }.to raise_error ToyRobot::OutOfLimits
+    end
   end
 
   context "It hasn't been placed" do

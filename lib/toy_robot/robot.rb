@@ -29,7 +29,10 @@ module ToyRobot
     #   robot.place Position.new(Coordinate.new(2, 2), :north)
     #
     # Returns nothing.
+    # Raises OutOfLimits if coordinate on position are higher than x/y limits.
     def place(position)
+      raise OutOfLimits.new if outside_limits? position
+
       @position = position
       @placed = true
     end
@@ -81,6 +84,7 @@ module ToyRobot
     #   # => 2,3,NORTH
     #
     # returns nothing.
+    # Raises OutOfLimits if next movement will cause robot destruction.
     def move
       raise NeedToBeInPlace.new unless @placed
 
