@@ -15,5 +15,12 @@ RSpec.describe ToyRobot::CLI do
 
       expect(cli).to have_received(:gets).exactly(4)
     end
+
+    it 'knows how to handle a `QUIT` command (exit the execution)' do
+      allow(cli).to receive(:gets).and_return('QUIT', nil)
+      expect(cli).to receive(:exit).with(0)
+
+      cli.run
+    end
   end
 end
