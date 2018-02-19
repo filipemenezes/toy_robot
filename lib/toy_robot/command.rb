@@ -1,6 +1,9 @@
 require 'toy_robot/command/place'
 require 'toy_robot/command/report'
-require 'toy_robot/command/register'
+require 'toy_robot/command/registry'
+require 'toy_robot/command/quit'
 
-module Command
+module ToyRobot
+  module Command
+  end
 end

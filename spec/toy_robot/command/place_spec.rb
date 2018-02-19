@@ -1,4 +1,4 @@
-RSpec.describe Command::Place do
+RSpec.describe ToyRobot::Command::Place do
   let(:robot) { ToyRobot::Robot.new }
   let(:command) { described_class.new }
 
