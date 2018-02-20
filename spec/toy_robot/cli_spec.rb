@@ -14,7 +14,6 @@ RSpec.describe ToyRobot::CLI do
   subject(:cli) { described_class.new(registry: registry) }
 
   describe '#run' do
-
     it 'waits for input from user' do
       expect(cli).to receive(:gets)
       cli.run
@@ -26,10 +25,20 @@ RSpec.describe ToyRobot::CLI do
 
       expect(cli).to have_received(:gets).exactly(4)
     end
+  end
 
-    it 'knows how to handle a `QUIT` command (exit the execution)' do
-      allow(cli).to receive(:gets).and_return('QUIT', nil)
-      expect(quit).to receive(:exit).with(0)
+  describe '.new' do
+    it 'uses the (default) created instance to fetch commands' do
+      registry = double(:registry)
+
+      expect(ToyRobot::Command::CLIRegistry)
+        .to receive(:new).and_return registry
+
+      expect(registry).to receive(:from)
+        .with('SOME_COMMAND').and_return(ToyRobot::Command::NullCommand.new)
+
+      cli = described_class.new
+      expect(cli).to receive(:gets).and_return('SOME_COMMAND', nil)
 
       cli.run
     end
